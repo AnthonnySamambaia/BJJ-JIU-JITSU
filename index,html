@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJJ Academy - Brazilian Jiu-Jitsu</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .about-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #ff6b35;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .techniques-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .technique-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .technique-icon {
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 3rem;
+        }
+
+        .technique-content {
+            padding: 25px;
+        }
+
+        .technique-content h3 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .belt-system {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .belts-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .belt {
+            width: 120px;
+            height: 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .belt:hover {
+            transform: scale(1.1);
+        }
+
+        .belt.white { background: #ffffff; color: #333; }
+        .belt.blue { background: #0066cc; }
+        .belt.purple { background: #6600cc; }
+        .belt.brown { background: #8b4513; }
+        .belt.black { background: #000000; }
+        .belt.red { background: #cc0000; }
+
+        .contact-section {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #1a1a2e;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #16213e;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .belts-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">🥋 BJJ Academy</div>
+            <div class="nav-links">
+                <a href="#home">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#techniques">Técnicas</a>
+                <a href="#belts">Graduações</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Brazilian Jiu-Jitsu</h1>
+            <p>A arte suave que transforma corpo e mente. Descubra o poder do BJJ e desenvolva disciplina, técnica e confiança.</p>
+            <a href="#about" class="cta-button">Comece Sua Jornada</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">O que é o BJJ?</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>🥋 Arte Marcial Brasileira</h3>
+                    <p>O Brazilian Jiu-Jitsu é uma arte marcial desenvolvida no Brasil, focada em técnicas de solo, alavancas e estrangulamentos. É conhecida como "a arte suave" por usar a técnica e alavancagem ao invés da força bruta.</p>
+                </div>
+                <div class="about-card">
+                    <h3>🧠 Xadrez Humano</h3>
+                    <p>Cada movimento no BJJ é estratégico. Desenvolve o raciocínio lógico, paciência e capacidade de resolver problemas sob pressão, sendo frequentemente comparado ao xadrez.</p>
+                </div>
+                <div class="about-card">
+                    <h3>💪 Condicionamento Total</h3>
+                    <p>Proporciona um treino completo que desenvolve força, flexibilidade, coordenação e resistência cardiovascular, enquanto ensina autodefesa efetiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="techniques" class="section techniques-section">
+        <div class="container">
+            <h2 class="section-title">Técnicas Fundamentais</h2>
+            <div class="techniques-grid">
+                <div class="technique-card">
+                    <div class="technique-icon">🤼</div>
+                    <div class="technique-content">
+                        <h3>Guarda</h3>
+                        <p>Posição defensiva fundamental onde você controla o oponente com suas pernas, criando oportunidades de ataque e defesa.</p>
+                    </div>
+                </div>
+                <div class="technique-card">
+                    <div class="technique-icon">🔄</div>
+                    <div class="technique-content">
+                        <h3>Passagem de Guarda</h3>
+                        <p>Técnicas para superar a guarda do oponente e alcançar posições dominantes como side control ou mount.</p>
+                    </div>
+                </div>
+                <div class="technique-card">
+                    <div class="technique-icon">🎯</div>
+                    <div class="technique-content">
+                        <h3>Finalizações</h3>
+                        <p>Estrangulamentos e chaves de articulação que forçam o oponente a desistir, como o triângulo e a kimura.</p>
+                    </div>
+                </div>
+                <div class="technique-card">
+                    <div class="technique-icon">🔄</div>
+                    <div class="technique-content">
+                        <h3>Sweeps</h3>
+                        <p>Técnicas para reverter posições desfavoráveis, tirando o oponente de cima e assumindo uma posição dominante.</p>
+                    </div>
+                </div>
+                <div class="technique-card">
+                    <div class="technique-icon">🛡️</div>
+                    <div class="technique-content">
+                        <h3>Escapes</h3>
+                        <p>Movimentos para sair de posições desfavoráveis e retornar a uma posição neutra ou vantajosa.</p>
+                    </div>
+                </div>
+                <div class="technique-card">
+                    <div class="technique-icon">👑</div>
+                    <div class="technique-content">
+                        <h3>Posições Dominantes</h3>
+                        <p>Mount, side control e back control - posições que oferecem controle total e múltiplas opções de finalização.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="belts" class="section belt-system">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Sistema de Graduações</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">
+                O progresso no BJJ é marcado por um sistema de faixas que representa anos de dedicação e aprendizado.
+            </p>
+            <div class="belts-container">
+                <div class="belt white">Branca</div>
+                <div class="belt blue">Azul</div>
+                <div class="belt purple">Roxa</div>
+                <div class="belt brown">Marrom</div>
+                <div class="belt black">Preta</div>
+                <div class="belt red">Coral/Vermelha</div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="opacity: 0.8;">Cada faixa representa aproximadamente 2-3 anos de treinamento consistente</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Entre em Contato</h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" placeholder="Conte-nos sobre seu interesse no BJJ..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BJJ Academy. Desenvolvendo campeões dentro e fora do tatame.</p>
+            <p style="margin-top: 10px; opacity: 0.7;">🥋 "A arte suave vence a força bruta" 🥋</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling para links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito de transparência na navegação
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(26, 26, 46, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 46, 0.95)';
+            }
+        });
+
+        // Animação das faixas
+        document.querySelectorAll('.belt').forEach(belt => {
+            belt.addEventListener('click', function() {
+                const beltName = this.textContent;
+                const messages = {
+                    'Branca': 'Faixa Branca: O início da jornada. Foco nos fundamentos e posições básicas.',
+                    'Azul': 'Faixa Azul: Desenvolvimento das técnicas básicas e início do jogo de guarda.',
+                    'Roxa': 'Faixa Roxa: Refinamento técnico e desenvolvimento do próprio estilo de jogo.',
+                    'Marrom': 'Faixa Marrom: Domínio avançado e preparação para ensinar outros.',
+                    'Preta': 'Faixa Preta: Maestria técnica e início de uma nova jornada de aprendizado.',
+                    'Coral/Vermelha': 'Faixas Coral/Vermelha: Graus máximos, reservados aos grandes mestres.'
+                };
+                
+                alert(messages[beltName] || 'Informação sobre a graduação');
+            });
+        });
+
+        // Formulário de contato
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email) {
+                alert(`Obrigado, ${name}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve para começar sua jornada no BJJ!`);
+                this.reset();
+            } else {
+                alert('Por favor, preencha pelo menos o nome e e-mail.');
+            }
+        });
+
+        // Animação de entrada dos cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animação aos cards
+        document.querySelectorAll('.about-card, .technique-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a5b601c30bc20f',t:'MTc1OTc1OTQ5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
